@@ -24,9 +24,9 @@ You also need to configure the WiFi proxy settings on your device:
 2. On your device, open the WiFi advanced options and look for proxy settings. The proxy server is your laptop and the port is the same as when you create a BrowserMob proxy instance in the code.
 
 ## Run the code
-1/ Install and launch Appium
-2/ Do a mvn build to get the dependencies
-3/ Run the BrowserMobTest
+1. Install and launch Appium
+2. Do a mvn build to get the dependencies
+3. Run the BrowserMobTest
 
 Make sure your device is connected:
  >$adb devices
