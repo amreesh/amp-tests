@@ -1,17 +1,17 @@
 # amp-tests
 
-##What are we trying to achieve?
+## What are we trying to achieve?
 We want to be able to automate mobile web tests and generate HAR file from a mobile phone Chrome browser.
 The HAR file contains lot of information about the network performance. To be able to capture the HAR file
 we need three components: 1/ Selenium for test automation 2/Appium for mobile web test automation 3/BrowserMob proxy
 which is a proxy server that intercepts the connection between your device and the Appium server (running on your test machine).
 
-##Requirements
+## Requirements
 - Appium
 - BrowserMob Proxy (can be run as standalone or embedded, for my case it's included in the pom.xml)
 - the rest is in the pom.xml
 
-##Important
+## Important
 For the BrowserMob proxy to be able to intercept and decrypt requests from your device (mobile phone), we need to install the BrowserMob certificate ca-certificate-rsa.cer file in your browser or HTTP client.
 
 Certificate can be downloaded from here:
