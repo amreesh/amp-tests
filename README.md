@@ -3,7 +3,10 @@
 ##What are we trying to achieve?
 We want to be able to automate mobile web tests and generate HAR file from a mobile phone Chrome browser.
 The HAR file contains lot of information about the network performance. To be able to capture the HAR file
-we need three components: 1/ Selenium for test automation 2/Appium for mobile web test automation 3/BrowserMob proxy
+we need three components: 
+1/ Selenium for test automation 
+2/ Appium for mobile web test automation 
+3/BrowserMob proxy
 which is a proxy server that intercepts the connection between your device and the Appium server (running on your test machine).
 
 ##Requirements
@@ -24,7 +27,8 @@ You also need to configure the WiFi proxy settings on your device:
 2. On your device, open the WiFi advanced options and look for proxy settings. The proxy server is your laptop and the port is the same as when you create a BrowserMob proxy instance in the code.
 
 ## Run the code
-1/ Install and launch Appium
+1/ Install and launch Appium with the chrome driver executable, found in 'tools'
+ >$ appium --chromedriver-executable tools/chromedriver	
 2/ Do a mvn build to get the dependencies
 3/ Run the BrowserMobTest
 
