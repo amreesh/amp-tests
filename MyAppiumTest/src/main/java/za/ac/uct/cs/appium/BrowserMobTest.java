@@ -5,18 +5,14 @@ import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.BrowserMobProxy;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 import net.lightbody.bmp.core.har.Har;
 import net.lightbody.bmp.proxy.CaptureType;
 import net.lightbody.bmp.client.ClientUtil;
 import net.lightbody.bmp.core.har.HarLog;
-import net.lightbody.bmp.core.har.HarEntry;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,7 +20,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -83,6 +78,7 @@ public class BrowserMobTest {
         AppiumDriver<MobileElement> driver = new AndroidDriver<MobileElement>(new URL("http://0.0.0.0:4723/wd/hub"), capabilities);
 
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().setScriptTimeout(30, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(120, TimeUnit.SECONDS);
 
         return driver;
@@ -153,7 +149,7 @@ public class BrowserMobTest {
         }
 
         test.getProxy().stop();
-        driver.quit();
+        //driver.quit();
 
     }
 
@@ -161,16 +157,51 @@ public class BrowserMobTest {
                             String harPath, boolean isGoogleSearch) {
 
         this.getProxy().newHar(harName);
-
         Har har = this.getProxy().getHar();
+
+/*
+        int count = 0;
+        int maxTries = 3;
+        boolean success = false;
+
+
+        while(true) {
+            try {
+                // Some Code
+                // break out of loop, or return, on success
+                driver.get(url);
+                success = true;
+                break;
+
+            } catch (TimeoutException e) {
+                // handle exception
+                if (++count == maxTries) {
+                    System.out.println("Timeout for " + url);
+                }
+            } catch (NoSuchSessionException e) {
+                if (++count == maxTries) {
+                    System.out.println("No such session for " + url);
+                }
+            }
+        }
+
+        if (!success)
+            return;
+
+        */
 
         try {
             driver.get(url);
         }catch (TimeoutException e) {
+            // handle exception{
             System.out.println("Timeout for " + url);
+        } catch (NoSuchSessionException e) {
+            System.out.println("No such session for " + url);
+            //driver.navigate().refresh();
+        } catch (WebDriverException e) {
+            System.out.println("Page crashed for " + url);
+            //driver.navigate().refresh();
         }
-
-        WebElement we;
 
         //Open URL in Chrome Browser
         if (isGoogleSearch) {
